@@ -1,0 +1,111 @@
+{
+  "name": "Emisor",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -96
+      ],
+      "id": "d389992c-0d83-4913-8c2e-08b160ad090f",
+      "name": "Emisor Solicitudes"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n\"solicitudes\": [\n  {\n    \"id_solicitud\": \"DEV-1115\",\n    \"sku\": \"AU-210\",\n    \"unidades\": \"1\",\n    \"monto\": \"19990\",\n    \"dias_desde_compra\": \"3\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"cliente1@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1116\",\n    \"sku\": \"TE-330\",\n    \"unidades\": \"2\",\n    \"monto\": \"69980\",\n    \"dias_desde_compra\": \"5\",\n    \"estado_producto\": \"abierto_sin_uso\",\n    \"email_cliente\": \"cliente2@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1117\",\n    \"sku\": \"HV-050\",\n    \"unidades\": \"1\",\n    \"monto\": \"24990\",\n    \"dias_desde_compra\": \"12\",\n    \"estado_producto\": \"con_fallas\",\n    \"email_cliente\": \"cliente3@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1118\",\n    \"sku\": \"MW-150\",\n    \"unidades\": \"1\",\n    \"monto\": \"79990\",\n    \"dias_desde_compra\": \"4\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"cliente4@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1119\",\n    \"sku\": \"PL-120\",\n    \"unidades\": \"1\",\n    \"monto\": \"45990\",\n    \"dias_desde_compra\": \"25\",\n    \"estado_producto\": \"danado_por_uso\",\n    \"email_cliente\": \"cliente5@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1120\",\n    \"sku\": \"AS-260\",\n    \"unidades\": \"1\",\n    \"monto\": \"89990\",\n    \"dias_desde_compra\": \"2\",\n    \"estado_producto\": \"con_fallas\",\n    \"email_cliente\": \"cliente6@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1121\",\n    \"sku\": \"LV-330\",\n    \"unidades\": \"1\",\n    \"monto\": \"289990\",\n    \"dias_desde_compra\": \"9\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"cliente7@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1122\",\n    \"sku\": \"PL-120\",\n    \"unidades\": \"1\",\n    \"monto\": \"45990\",\n    \"dias_desde_compra\": \"2\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"cliente8@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1123\",\n    \"sku\": \"AU-210\",\n    \"unidades\": \"2\",\n    \"monto\": \"39980\",\n    \"dias_desde_compra\": \"15\",\n    \"estado_producto\": \"danado_por_uso\",\n    \"email_cliente\": \"cliente9@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1124\",\n    \"sku\": \"HV-050\",\n    \"unidades\": \"2\",\n    \"monto\": \"49980\",\n    \"dias_desde_compra\": \"1\",\n    \"estado_producto\": \"abierto_sin_uso\",\n    \"email_cliente\": \"cliente10@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1125\",\n    \"sku\": \"TE-330\",\n    \"unidades\": \"1\",\n    \"monto\": \"34990\",\n    \"dias_desde_compra\": \"22\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"cliente11@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-1126\",\n    \"sku\": \"MW-150\",\n    \"unidades\": \"1\",\n    \"monto\": \"79990\",\n    \"dias_desde_compra\": \"8\",\n    \"estado_producto\": \"con_fallas\",\n    \"email_cliente\": \"cliente12@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-C01\",\n    \"sku\": \"CB-010\",\n    \"unidades\": \"1\",\n    \"monto\": \"9990\",\n    \"dias_desde_compra\": \"1\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"control01@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-C02\",\n    \"sku\": \"LV-330\",\n    \"unidades\": \"1\",\n    \"monto\": \"289990\",\n    \"dias_desde_compra\": \"2\",\n    \"estado_producto\": \"sin_abrir\",\n    \"email_cliente\": \"control02@example.cl\"\n  },\n  {\n    \"id_solicitud\": \"DEV-C03\",\n    \"sku\": \"MW-150\",\n    \"unidades\": \"1\",\n    \"monto\": \"79990\",\n    \"dias_desde_compra\": \"29\",\n    \"estado_producto\": \"abierto_sin_uso\",\n    \"email_cliente\": \"control03@example.cl\"\n  }\n]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        128,
+        -96
+      ],
+      "id": "136f1023-c096-4de9-b875-b3b3a8014d4f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "solicitudes",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -96
+      ],
+      "id": "7014a366-4b51-4d8c-bdb8-14c0c6eec841",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/devoluciones-266",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        576,
+        -96
+      ],
+      "id": "44cd6543-8ac0-4a03-8650-5d4f5d0a206a",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Emisor Solicitudes": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "25ff2c73-a1bb-45f9-ae46-9fd02cf1c6a6",
+  "meta": {
+    "instanceId": "e5085daccceca6f494c22e55776d647668b442d4559985b6deb05e2923793639"
+  },
+  "nodeGroups": [],
+  "id": "4RJao1JdN35NMEyc",
+  "tags": []
+}

@@ -1,0 +1,248 @@
+{
+  "name": "Resumen Diario",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 23,
+              "triggerAtMinute": 55
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -368,
+        -32
+      ],
+      "id": "2948f560-d056-42cc-bc4c-a431dc2344a7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "j0gmtxYYHHg8RP2W",
+          "mode": "list",
+          "cachedResultName": "registro_devoluciones",
+          "cachedResultUrl": "/projects/iqKoKxmvcQDvQKQd/datatables/j0gmtxYYHHg8RP2W"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fecha_dia",
+              "keyValue": "={{ $now.toFormat('yyyy-MM-dd') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        -32
+      ],
+      "id": "e8c52578-eeac-4d09-ad2e-1e62d2a9f625",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id_solicitud"
+            },
+            {
+              "aggregation": "sum",
+              "field": "monto"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "ruta",
+        "options": {
+          "outputFormat": "separateItems"
+        }
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        -112
+      ],
+      "id": "1b9cf528-e104-4191-bb1c-8f2608e36588",
+      "name": "Summarize por ruta",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id_solicitud"
+            },
+            {
+              "aggregation": "sum",
+              "field": "monto"
+            },
+            {
+              "aggregation": "sum",
+              "field": "aprobacion_auto"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        32
+      ],
+      "id": "b8f169ae-55e1-4aa4-8ce3-edf01fb66354",
+      "name": "Summarize totales"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0b41f77d-c0b0-477d-a430-f10b7fcb98db",
+              "name": "tasa_aprobacion",
+              "value": "={{ $json.total_solicitudes > 0 ? ($json.aprobaciones_auto / $json.total_solicitudes) * 100 : 0 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        496,
+        -32
+      ],
+      "id": "26ba265f-f414-4c40-a942-ab84f5cc208b",
+      "name": "Calcular tasa aprobacion"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        304,
+        -32
+      ],
+      "id": "9944d7d5-3b18-4f23-aa99-e04411dea2b8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "toEmail": "encargado@andeshogar.com",
+        "subject": "Resumen diario de devoluciones",
+        "emailFormat": "text",
+        "text": "=RESUMEN DIARIO DE DEVOLUCIONES\n\nRESUMEN POR RUTA\n\nRuta: {{ $('Summarize por ruta').all()[0].json.ruta }}\nSolicitudes: {{ $('Summarize por ruta').all()[0].json.count_id_solicitud }}\nMonto: ${{ $('Summarize por ruta').all()[0].json.sum_monto }}\n\nRuta: {{ $('Summarize por ruta').all()[1].json.ruta }}\nSolicitudes: {{ $('Summarize por ruta').all()[1].json.count_id_solicitud }}\nMonto: ${{ $('Summarize por ruta').all()[1].json.sum_monto }}\n\nRuta: {{ $('Summarize por ruta').all()[2].json.ruta }}\nSolicitudes: {{ $('Summarize por ruta').all()[2].json.count_id_solicitud }}\nMonto: ${{ $('Summarize por ruta').all()[2].json.sum_monto }}\n\nTOTALES DEL DÍA\n\nTotal de solicitudes: {{ $json.count_id_solicitud }}\nMonto total del día: ${{ $json.sum_monto }}\nAprobaciones automáticas: {{ $('Summarize totales').item.json.sum_aprobacion_auto }}\nTasa de aprobación automática: {{ $json.tasa_aprobacion }}%",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        704,
+        -32
+      ],
+      "id": "fd7929bb-393b-4b09-a33e-5de795fbc30f",
+      "name": "Send an Email",
+      "webhookId": "86828e54-0dee-4e8e-a6e4-ba0e040d96a6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Summarize por ruta",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summarize totales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize por ruta": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize totales": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Calcular tasa aprobacion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular tasa aprobacion": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "25b8afe0-947f-4fef-9541-39f34f9b023e",
+  "meta": {
+    "instanceId": "e5085daccceca6f494c22e55776d647668b442d4559985b6deb05e2923793639"
+  },
+  "nodeGroups": [],
+  "id": "WOytSGtXCey2eaTf",
+  "tags": []
+}
