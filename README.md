@@ -100,7 +100,3 @@ De la respuesta se utiliza el campo:
 `uf.valor`
 
 para expresar el monto de las solicitudes en unidades de fomento.
-
-
-```bash
-Hola /*Prueba*/
